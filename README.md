@@ -154,7 +154,7 @@ Both seeded accounts use the password `Password123!`.
 - Create bookings for available units associated with their assigned leads
 - Cancel bookings created by that employee
 
-Lead, property, user, and booking-list permissions are enforced by the backend, not only by frontend visibility. Booking creation should additionally validate that a Sales Employee is booking an assigned lead before production use.
+Lead, property, user, dashboard, and booking permissions are enforced by the backend, not only by frontend visibility. Sales Employees see only their assigned leads and own booking activity, while Admins can view the complete workspace.
 
 ## Database overview
 
@@ -245,7 +245,12 @@ pnpm run build
 
 ## Screenshots or deployment
 
-Add screenshots or a deployed URL here before submission. Recommended screenshots:
+The application is deployed here:
+
+- Frontend: [EstateFlow CRM on Vercel](https://real-estate-crm-eight-puce.vercel.app)
+- Backend API: [EstateFlow API on Render](https://real-estate-crm-t3dw.onrender.com/api/health)
+
+Recommended screenshots for the submission package:
 
 - Login screen
 - Dashboard
@@ -259,5 +264,4 @@ Add screenshots or a deployed URL here before submission. Recommended screenshot
 
 - The local development schema is created with `sequelize.sync()` rather than migrations.
 - The frontend and API are started separately during local development.
-- Booking creation should add an explicit assigned-lead ownership check for Sales Employees before production use.
 - A production deployment should use managed PostgreSQL, secure environment variables, migrations, and HTTPS.

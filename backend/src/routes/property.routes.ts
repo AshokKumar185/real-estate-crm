@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
 import { requireAuth } from "../middleware/auth.middleware.js";
-import { Building, Project, Unit } from "../models/index.js";
+import { Booking, Building, Project, Unit } from "../models/index.js";
 
 export const propertyRouter = Router();
 
@@ -131,6 +131,16 @@ propertyRouter.patch(
     const unit = await Unit.findByPk(request.params.id as string);
     if (!unit) {
       response.status(404).json({ message: "Unit not found" });
+      return;
+    }
+    const confirmedBooking = await Booking.findOne({
+      where: { unitId: unit.id, status: "confirmed" },
+      attributes: ["id"],
+    });
+    if (confirmedBooking) {
+      response.status(409).json({
+        message: "Booked units can only be released by cancelling the booking",
+      });
       return;
     }
     await unit.update({ status: parsed.data.status });
